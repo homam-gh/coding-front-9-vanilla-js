@@ -9,8 +9,7 @@
 </head>
 
 <body>
-    <div id="root">
-    </div>
+    <div id="root"></div>
 
     <script src="https://unpkg.com/react@18.1.0/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18.1.0/umd/react-dom.development.js"></script>
@@ -19,31 +18,32 @@
     <script type="text/babel">
         const rootElement = document.getElementById('root')
 
-        // const e1 = React.createElement('span', { children: 'some ' })
-        // const e2 = React.createElement('span', { children: 'text ', id: 'gholi' })
-        // const e3 = React.createElement('span', { children: e1, className: "dalli" })
+        const e1 = React.createElement('span', { children: 'some ' })
+        const e2 = React.createElement('span', { children: 'text ', id: 'gholi' })
+        const e3 = React.createElement('span', { children: e1, className: "dalli" })
 
-        // const listElement = React.createElement('ul', {
-        //     children: [
-        //         React.createElement('li', { children: 'salam' }),
-        //         React.createElement('li', { children: 'salam' }),
-        //         React.createElement('li', {
-        //             children: [
-        //                 React.createElement('a', { children: ['link', React.createElement('i', { className: 'fa-circle' })] })
-        //             ]
-        //         }),
-        //         React.createElement('li', { children: 'salam' }),
-        //         React.createElement('li', { children: 'salam' }),
-        //     ]
-        // })
+        const listElement = React.createElement('ul', {
+            children: [
+                React.createElement('li', { children: 'salam' }),
+                React.createElement('li', { children: 'salam' }),
+                React.createElement('li', {
+                    children: [
+                        React.createElement('a', { children: ['link', React.createElement('i', { className: 'fa-circle' })] })
+                    ]
+                }),
+                React.createElement('li', { children: 'salam' }),
+                React.createElement('li', { children: 'salam' }),
+            ]
+        })
+
+
 
         const a = 5
         const b = 10
 
-
         const someText = 'some dummy text here'
 
-        const textWithTemplateLitral = `salam gholi ${someText}, khoobi aziz`
+        const textWithTemplateLitral = `this is a placeholder for: ((${someText}))`
 
         const el234 = () => { return 'dalli' }
 
@@ -52,39 +52,69 @@
         // {
         //     userName: 'homam',
         //     isLoading: true,
-        //     hasError: false
+        //     hasError: false,
+        //     id: 'some string'
         // }
 
-        // first type of writig components
-        const LabelWithInput = (props) => {
-
-            let loaded = props.isLoading
-
-            loaded = !loaded
-
-            return <label htmlFor={props.id} className={`${loaded ? 'loading' : ''} ${props.hasError ? 'errored' : 'no-error'}`}>some label<input id={props.id} type="text" /></label>
+        function LabelWithInput(props) {
+            return (<label
+                htmlFor={props.id}
+                className={`${props.isloading ? 'loading' : ''} ${props.hasError ? 'errored' : 'no-error'}`}
+            >
+                {props.children}
+                <input type="text" id={props.id} />
+            </label>
+            )
         }
 
-        // second type of writig components
-        function LabelWithInput1(props) {
-            let loaded = props.isLoading
+        const tmpText = (<div id="dalliMoshe">ajsdfg lkjashgl</div>)
 
-            loaded = !loaded
-
-            return <label htmlFor={props.id} className={`${loaded ? 'loading' : ''} ${props.hasError ? 'errored' : 'no-error'}`}>some label<input id={props.id} type="text" /></label>
+        const propObj = {
+            isloading: true,
+            hasError: false,
+            children: tmpText,
         }
-
-
 
         const element = (<ul>
-            <li>salam</li>
-            <li>salam2</li>
-            <li>
-                <LabelWithInput id="gholi" isLoading={true} hasError={false} />
-            </li>
-            <li><a href="#">salam4</a><i className="fa-circle" /></li>
-            <li><LabelWithInput id="taghi" /></li>
+            <li><LabelWithInput isloading={true} hasError={false} id="asdf">
+                salam
+            </LabelWithInput></li>
+            <li>{textWithTemplateLitral}</li>
+            <li>{el234()}</li>
+            <li><LabelWithInput {...propObj} isloading={false} id="fdsa" /></li>
+            <li><LabelWithInput {...propObj} id="sdfa" /></li>
+            <li>{a > b ? 'khoobi' : 'badi'}</li>
+            <li>{gholi}</li>
         </ul>)
+
+        // <li>
+        //     <LabelWithInput id="gholi" isLoading={true} hasError={false} />
+        // </li>
+        // <li><a href="#">salam4</a><i className="fa-circle" /></li>
+        // <li><LabelWithInput id="taghi" /></li>
+
+
+
+        // first type of writig components
+        // const LabelWithInput = (props) => {
+
+        //     let loaded = props.isLoading
+
+        //     loaded = !loaded
+
+        //     return <label htmlFor={props.id} className={`${loaded ? 'loading' : ''} ${props.hasError ? 'errored' : 'no-error'}`}>some label<input id={props.id} type="text" /></label>
+        // }
+
+        // second type of writig components
+        // function LabelWithInput1(props) {
+        //     let loaded = props.isLoading
+
+        //     loaded = !loaded
+
+        //     return <label htmlFor={props.id} className={`${loaded ? 'loading' : ''} ${props.hasError ? 'errored' : 'no-error'}`}>some label<input id={props.id} type="text" /></label>
+        // }
+
+
 
 
 
