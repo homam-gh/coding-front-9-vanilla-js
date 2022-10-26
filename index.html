@@ -5,145 +5,96 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fetch Data</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
 </head>
 
 <body>
-    <button onclick="fetchData()">get data</button>
+    <div id="root">
+    </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>
-                    Currency Name
-                    <button class="sort-btn" onclick="sort('name')">^</button>
-                </th>
-                <th>
-                    Currency Type
-                    <button class="sort-btn" onclick="sort('type')">^</button>
-                </th>
-                <th>
-                    Currency Unit
-                    <button class="sort-btn" onclick="sort('unit')">^</button>
-                </th>
-                <th>
-                    Currency Value
-                    <button class="sort-btn" onclick="sort('value')">^</button>
-                </th>
-            </tr>
-        </thead>
-        <tbody id="tbody">
+    <script src="https://unpkg.com/react@18.1.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18.1.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.12.4/babel.js"></script>
 
-        </tbody>
-    </table>
+    <script type="text/babel">
+        const rootElement = document.getElementById('root')
 
-    <script>
-        let tableData = [] // 1
+        // const e1 = React.createElement('span', { children: 'some ' })
+        // const e2 = React.createElement('span', { children: 'text ', id: 'gholi' })
+        // const e3 = React.createElement('span', { children: e1, className: "dalli" })
 
-        async function fetchData() {
-            let response = await fetch('https://api.coingecko.com/api/v3/exchange_rates')
-            let data = await response.json()
+        // const listElement = React.createElement('ul', {
+        //     children: [
+        //         React.createElement('li', { children: 'salam' }),
+        //         React.createElement('li', { children: 'salam' }),
+        //         React.createElement('li', {
+        //             children: [
+        //                 React.createElement('a', { children: ['link', React.createElement('i', { className: 'fa-circle' })] })
+        //             ]
+        //         }),
+        //         React.createElement('li', { children: 'salam' }),
+        //         React.createElement('li', { children: 'salam' }),
+        //     ]
+        // })
 
-            parseData(data.rates)
+        const a = 5
+        const b = 10
+
+
+        const someText = 'some dummy text here'
+
+        const textWithTemplateLitral = `salam gholi ${someText}, khoobi aziz`
+
+        const el234 = () => { return 'dalli' }
+
+        const gholi = (<div>{el234()} {textWithTemplateLitral}, {a < b ? 'khoobi' : 'badi'} aziz</div>)
+
+        // {
+        //     userName: 'homam',
+        //     isLoading: true,
+        //     hasError: false
+        // }
+
+        // first type of writig components
+        const LabelWithInput = (props) => {
+
+            let loaded = props.isLoading
+
+            loaded = !loaded
+
+            return <label htmlFor={props.id} className={`${loaded ? 'loading' : ''} ${props.hasError ? 'errored' : 'no-error'}`}>some label<input id={props.id} type="text" /></label>
         }
 
-        function parseData(m) {
-            const objKeys = Object.keys(m)
-            // console.log(objKeys)
+        // second type of writig components
+        function LabelWithInput1(props) {
+            let loaded = props.isLoading
 
-            const tmpArray = objKeys.map((el) => {
-                // console.log(m[el])
-                return m[el]
-            })
-            // console.log(tmpArray[0] 
+            loaded = !loaded
 
-            tableData = tmpArray // 2
-            createTable()
+            return <label htmlFor={props.id} className={`${loaded ? 'loading' : ''} ${props.hasError ? 'errored' : 'no-error'}`}>some label<input id={props.id} type="text" /></label>
         }
 
-        function createTable() {
-            const tbody = document.getElementById('tbody')
-            // htmlStr = ""
-
-            for (let i = 0; i < tableData.length; i++) {
-                const rowData = tableData[i]
-                const tr = `<tr>
-                    <td>${rowData.name}</td>
-                    <td>${rowData.type}</td>
-                    <td>${rowData.unit}</td>
-                    <td>${rowData.value}</td>
-                </tr>`
-
-                tbody.insertAdjacentHTML('beforeend', tr)
-            }
-
-            // for (let i = 0; i < rates.length; i++) {
-            //     const rowData = rates[i]
-            //     htmlStr += `<tr>
-            //         <td>${rowData.name}</td>
-            //         <td>${rowData.type}</td>
-            //         <td>${rowData.unit}</td>
-            //         <td>${rowData.value}</td>
-            //     </tr>`
-
-            // }
-            // tbody.insertAdjacentHTML('beforeend', htmlStr)
-        }
-
-        function clearTable() {
-            const rows = document.querySelectorAll('#tbody > *')
-
-            for (let i = 0; i < rows.length; i++) {
-                rows[i].remove()
-            }
-        }
-
-        function sort(property) {
-            tableData = tableData.sort((a, b) => {
-                if (a[property] > b[property]) {
-                    return 1
-                } else {
-                    return -1
-                }
-            })
-
-            clearTable()
-            createTable()
-
-            // simple sort function
-
-            // 3, 5, 1, 6, 0, 9
-            // 3, 1, 5, 0, 6, 9
-            // 1, 3, 0, 5, 6, 9
-
-            // sampleArr.sort((a, b) => {
-            //     if (a > b) {
-            //         return -1
-            //     } else {
-            //         return 1
-            //     }
-            // })
 
 
-            // array of objects sort function
+        const element = (<ul>
+            <li>salam</li>
+            <li>salam2</li>
+            <li>
+                <LabelWithInput id="gholi" isLoading={true} hasError={false} />
+            </li>
+            <li><a href="#">salam4</a><i className="fa-circle" /></li>
+            <li><LabelWithInput id="taghi" /></li>
+        </ul>)
 
-            // const sampleArr = [
-            //     { name: 6, address: 'sdfgsdg', },
-            //     { name: 2, address: 'dfgh' },
-            //     { name: 4, address: '456 4567' }
-            // ]
 
-            // let property = 'address'
 
-            // sampleArr.sort((a, b) => {
-            //     if (a[property] > b[property]) {
-            //         return -1
-            //     } else {
-            //         return 1
-            //     }
-            // })
-        }
+        // const reactElement = React.createElement(elementType, elementProps)
+        // const element = React.createElement('div', {
+        //     className: 'container',
+        //     children: [e1, e2, e3, listElement],
+        // })
+
+        ReactDOM.createRoot(rootElement).render(element)
 
     </script>
 </body>
